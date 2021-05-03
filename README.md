@@ -4,7 +4,7 @@ Client to download Files from Storage "Azure Blob"
 
 **Instalation**
 
-C:\"Program Files"\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe -m pip install azure-storage-blob
+python.exe -m pip install azure-storage-blob
 
 **Config File**
 
