@@ -14,7 +14,7 @@ It is necessary to have a .connection file, with the value of the connection str
 
 main("teste")
 
-**Métodos** 
+**Methods** 
 
 - read_config_file - Reads the .connection configuration file to read a connection string
 - create_folders - Creates the folder structure for downloading the file
