@@ -1,6 +1,5 @@
-from azure.storage.blob import BlobClient
+from azure.storage.blob import BlobClient, BlobServiceClient, ContainerClient
 import os
-from azure.storage.blob import ContainerClient
 
 def main(container_name):
     """
@@ -11,14 +10,39 @@ def main(container_name):
     """
     connection_string = read_config_file(".connection")
 
+
     container = ContainerClient.from_connection_string(
         conn_str=connection_string, container_name=container_name)
+    
 
     blob_list = container.list_blobs()
 
     for blob in blob_list:
         create_folders(blob.name)
         create_file_blob(connection_string, blob, container_name)
+
+        # Set metadata for the current blob
+        # Create a BlobClient for the current blob
+        blob_client = BlobClient.from_connection_string(
+            conn_str=connection_string, container_name=container_name, blob_name=blob.name)
+
+        # Set metadata for the current blob
+        metadata = {"author": "Joao", "description": "Metadata for the current blob"}
+        set_blob_metadata(blob_client, metadata)
+
+
+def set_blob_metadata(blob_client, metadata):
+    """
+    Set metadata for a blob
+        Args:
+            :param blob_client
+                An instance of BlobClient
+            :param metadata
+                A dictionary of metadata to set for the blob
+    """
+    blob_client.set_blob_metadata(metadata)
+
+
 
 def create_file_blob(connection_string, blob, container_name):
     """
@@ -78,4 +102,4 @@ def read_config_file(name_file):
 
 
 if __name__ == "__main__":
-    main("teste")
+    main("testelab01upload")
